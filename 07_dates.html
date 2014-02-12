@@ -1,0 +1,65 @@
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+</head>
+<body ng-controller="DemoController">
+	<p>{{ today | date:'medium' }} </p><!-- Aug 09, 2013 12:09:02 PM -->
+	<p>{{ today | date:'short' }}</p> <!-- 8/9/13 12:09 PM -->
+	<p>{{ today | date:'fullDate' }}</p> <!-- Thursday, August 09, 2013 -->
+	<p>{{ today | date:'longDate' }}</p> <!-- August 09, 2013 -->
+	<p>{{ today | date:'mediumDate' }} </p><!-- Aug 09, 2013 -->
+	<p>{{ today | date:'shortDate' }}</p> <!-- 8/9/13 -->
+	<p>{{ today | date:'mediumTime' }}</p> <!-- 12:09:02 PM -->
+	<p>{{ today | date:'shortTime' }}</p> <!-- 12:09 PM -->
+
+	<h2>Year Formatting</h2>
+	<p>Four-digit year: {{ today | date:'yyyy' }}</p> <!-- 2013 -->
+	<p>Two-digit padded year: {{ today | date:'yy' }}</p> <!-- 13 -->
+	<p>One-digit year: {{ today | date:'y' }}</p> <!-- 2013 -->
+
+	<h2>Month Formatting</h2>
+	<p>Month in year: {{ today | date:'MMMM' }}</p> <!-- August -->
+	<p>Short month in year: {{ today | date:'MMM' }} </p><!-- Aug -->
+	<p>Padded month in year: {{ today | date:'MM' }}</p> <!-- 08 -->
+	<p>Month in year: {{ today | date:'M' }}</p> <!-- 8 -->
+
+	<h2>Day Formatting</h2>
+	<p>Padded day in month: {{ today | date:'dd' }}</p> <!-- 09 -->
+	<p>Day in month: {{ today | date:'d' }}</p> <!-- 9 -->
+	<p>Day in week: {{ today | date:'EEEE' }} </p><!-- Thursday -->
+	<p>Short day in week: {{ today | date:'EEE' }}</p> <!-- Thu -->
+<h2>Hour Formatting</h2>
+<p>Padded hour in day: {{ today | date:'HH' }}</p> <!-- 00 -->
+<p>Hour in day: {{ today | date:'H' }}</p> <!-- 0 -->
+<p>Padded hour in am/pm: {{ today | date:'hh' }}</p> <!-- 12 -->
+<p>Hour in am/pm: {{ today | date:'h' }}</p> <!-- 12 -->
+
+<h2>Minute Formatting</h2>
+<p>Padded minute in hour: {{ today | date:'mm' }}</p> <!-- 09 -->
+<p>Minute in hour: {{ today | date:'m' }} </p><!-- 9 -->
+
+<h2>Second Formatting</h2>
+<p>Padded second in minute: {{ today | date:'ss' }}</p> <!-- 02 -->
+<p>Second in minute: {{ today | date:'s' }}</p> <!-- 2 -->
+<p>Padded millisecond in second: {{ today | date:'.sss' }} </p><!-- .995 -->
+
+<h2>String Formatting</h2>
+<p>am/pm character: {{ today | date:'a' }}</p> <!-- AM -->
+<p>4-digit representation of time zone offset: {{ today | date:'Z' }} </p><!-- -0700 -->
+
+<h2>Custom Formatting</h2>
+<p>{{ today | date:'MMM d, y' }} </p><!-- Aug 09, 2013 -->
+<p>{{ today | date:'EEEE, d, M' }} </p><!-- Thursday, 9, 8 -->
+<p>{{ today | date:'hh:mm:ss.sss' }} </p><!-- 12:09:02.995 -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+<script>
+var myApp = angular.module('myApp', []);
+
+myApp.controller('DemoController', function($scope){
+	$scope.today = new Date();
+})
+</script>
+</body>
+</html>

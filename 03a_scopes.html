@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Scopes Example</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+</head>
+<body>
+  <div ng-app="myApp">
+    <div ng-controller="MyController">
+      My favorite childhood movie: {{ movie }}
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+
+  <script>
+    angular.module("myApp", [])
+    .controller("MyController", ['$scope', function($scope) {
+      $scope.movie = "Duck Tails";
+    }]);
+  </script>
+</body>
+</html>

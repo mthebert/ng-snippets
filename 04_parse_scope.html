@@ -1,0 +1,17 @@
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>Parse Service</title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+</head>
+<body>
+	<div ng-controller="MyController">
+		<input ng-model="expr" 
+			type="text" 
+			placeholder="Enter an expression" />
+		<h2>{{ parsedValue }}</h2>
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+<script src="js/04_app.js"></script>
+</body>
+</html>

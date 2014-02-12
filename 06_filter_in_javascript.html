@@ -1,0 +1,78 @@
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>Filters</title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+</head>
+<body ng-controller="DemoController">
+	<h3>Filter in my JavaScript: {{ sfivc }}</h3>
+	
+	<h3>Defined custom filter: {{ 'GINGER LOVES DOG TREATS' | lowercase | capitalize }}</h3>
+	
+	<h3>Filter defined in my controller:{{ ['Ari', 'likes', 'to', 'travel'] | filter:isCapitalized }}</h3>
+	
+	<h3>Filter directive with parameter: {{ ['Ari', 'Lerner', 'Likes', 'To', 'Eat', 'Pizza'] | filter:'e' }}</h3>
+	<h3>Number Filter: {{ 123456789 | number }}</h3>
+	<h3>Number Filter with limiting parameter: {{ 1.234567 | number:2 }}</h3>
+	<h3>Filter with expression: {{ [{
+		'name': 'Ari',
+		'City': 'San Francisco',
+		'favorite food': 'Pizza'
+		}, {
+		'name': 'Nate',
+		'City': 'San Francisco',
+		'favorite food': 'indian food'
+		}] 	| filter:{'favorite food': 'Pizza'}	}}</h3>
+
+	<h3>Limit to: {{ sfivc | limitTo:3 }}</h3>
+
+	<h3>Limit to with negative: {{ sfivc | limitTo:-6 }}</h3>
+
+	<h3>Limit to with an array: {{ ['a', 'b', 'c', 'd', 'e', 'f'] | limitTo:1 }}</h3>
+	<h3>uppercase:  {{ sfivc | uppercase }}</h3>
+	<h3>lowercase filter: {{ sfivc | lowercase }}</h3>
+
+	<h3>OrderBy Filter{{ [{
+		'name': 'Ari',
+		'status': 'awake'
+		}, {
+		'name': 'Q',
+		'status': 'sleeping'
+		}, {
+		'name': 'Nate',
+		'status': 'awake'
+		}] | orderBy: 'name' }}</h3>
+  <div>
+    <h5>Custom blankIfNegative Filter:</h5>
+    <h2>{{ 15 | blankIfNegative }}</h2>
+    <h2>{{ -15 | blankIfNegative }}</h2>
+  </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+<script>
+angular.module("myApp", [])
+	.controller('DemoController', ['$scope', '$filter',
+		function($scope, $filter) {
+			$scope.sfivc = "San Francisco is very cloudy";
+			// this is a filter in my javascript
+			$scope.name = $filter('lowercase')($scope.myname);
+			// custom filter defined as .filter
+			$scope.isCapitalized = function(str) { 
+				return str[0] == str[0].toUpperCase(); 
+			}
+		}])
+	.filter('capitalize', function() {
+		return function(input) {
+			if (input)
+				return input[0].toUpperCase() + input.slice(1);		
+		}
+	});	
+    .filter('blankIfNegative', function() {
+      return function(input) {
+        if (input <= 0) return ' ';
+        else return input;
+      }
+    });	
+</script>
+</body>
+</html>

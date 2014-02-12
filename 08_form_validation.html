@@ -1,0 +1,92 @@
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<style>
+	.ng-pristine {}
+	.ng-dirty {}
+	.ng-valid {border: 1px solid green;}
+	.ng-invalid {border: 1px solid red;}
+	</style>
+</head>
+<body ng-controller="FormController">
+	<form name="form" novalidate>
+		<label name="firstname">Your First Name (Required, 3-20 characters, only alpha</label>
+		<input type="text" name="firstname" ng-pattern="/a-zA-Z/" ng-model="user.firstname" required ng-minlength=3 ng-maxlength=20 placeholder="First Name" />
+		
+		<label name="age">Your Age (type number, between 1-10)</label>
+		<input type="number" name="age"  ng-model="user.age" oneToTen placeholder="Your Age" />
+		
+		<label name="username">Username (custom unique directive)</label>
+		<input type="text" name="username"  ng-model="user.username" ensureUnique placeholder="Username" />	
+		
+		<label name="website">Your Webpage (type url)</label>
+		<input type="url" name="website"  ng-model="user.website" placeholder="http:\\www.somesite.com" />		
+		
+		<label name="email">Your email (Required, 5-50 characters, type email)</label>
+		<input type="email" name="email" ng-model="user.email" required ng-minlength=5 ng-maxlength=50 placeholder="Email Address" />
+	</form>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+<script>
+var myApp = angular.module('myApp', [])
+	.directive('ensureUnique', function($http) {
+		return {
+			require: 'ngModel',
+			link: function(scope, ele, attrs, c) {
+				scope.$watch(attrs.ngModel, function() {
+					$http({
+						method: 'POST',
+						url: '/api/check/' + attrs.ensureUnique,
+						data: {'field': attrs.ensureUnique}
+					}).success(function(data,status,headers,cfg) {
+						c.$setValidity('unique', data.isUnique);
+					}).error(function(data,status,headers,cfg) {
+						c.$setValidity('unique', false);
+					});
+				});
+			}
+		}
+	})
+	.directive('oneToTen', function() {
+		return {
+			require: '?ngModel',
+			link: function(scope, ele, attrs, ngModel) {
+				if (!ngModel) return;
+				ngModel.$parsers.unshift(
+					function(viewValue) {
+						var i = parseInt(viewValue);
+						if (i >= 0 && i < 10) {
+							ngModel.$setValidity('oneToTen', true);
+							return viewValue;
+						} else {
+							ngModel.$setValidity('oneToTen', false);
+							return undefined;
+						}
+				});
+			}
+		};
+	})
+	.directive('oneToTenv2', function() {
+		return {
+			require: '?ngModel',
+			link: function(scope, ele, attrs, ngModel) {
+				if (!ngModel) return;
+				ngModel.$formatters.unshift(function(v) {
+					return $filter('number')(v);
+				});
+			}
+		};
+	})	
+	.controller('FormController',
+	function($scope) {
+		$scope.user = {};
+		$scope.pristine = $scope.form.inputFieldName.$pristine;
+		$scope.dirty = $scope.form.inputFieldName.$dirty;
+		$scope.valid = $scope.form.inputFieldName.$valid;
+		$scope.invalid = $scope.form.inputFieldName.$invalid;
+		$scope.error = $scope.form.inputFieldName.$error;
+	});
+</script>
+</body>
+</html>

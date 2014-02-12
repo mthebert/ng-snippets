@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+	<meta charset="utf-8">
+	<title>Simple app</title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+</head>
+<body>
+	<div ng-controller='MyController'>
+		<input ng-model="person.name" type="text" placeholder="Your name" />
+		<h1>Hello {{ person.name }}</h1>
+		<br />
+		<h2>The Time Is...{{clock.now}}</h2>
+
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+<script src="js/01_app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<html ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<title>Scope Inheritance</title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+</head>
+<body>
+	<div ng-controller="ParentController">
+		<div ng-controller="ChildController">
+			<a ng-click="sayHello()">Say Hello!</a>
+		</div>
+		{{ person.name }}
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+<script src="js/03_app.js"></script>
+</body>
+</html>

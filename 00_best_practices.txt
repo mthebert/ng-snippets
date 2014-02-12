@@ -1,0 +1,8 @@
+Controllers
+- name controllers using names like MyController
+- the controller is not the appropriate place to do any DOM manipulation or formatting, data manipulation, or state
+maintenance beyond holding the model data.  allow directives and services to handle the dirty logic
+
+Scope/View Model
+- Instead of creating an object and accessing the object directly, reference properties of the object
+	Instead of {{name}}, create a $scope.person, then reference {{person.name}}
